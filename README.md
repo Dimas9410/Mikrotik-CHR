@@ -1,4 +1,4 @@
-# ACHR-Ubuntu
+# Mikrotik-CHR
 This is a script to automatically install Mikrotik Chr on Ubuntu versions 20.04, 22.04, and 24.04.
 
 # Usage
@@ -9,10 +9,13 @@ sudo su
 git clone https://github.com/Dimas9410/Mikrotik-CHR
 ```
 ```
-cd ACHR-Ubuntu
+cd Mikrotik-CHR
 ```
 ```
 chmod +x install.sh
+```
+```
+apt update
 ```
 ```
 apt-get install dos2unix
