@@ -6,7 +6,7 @@ This is a script to automatically install Mikrotik Chr on Ubuntu versions 20.04,
 sudo su
 ```
 ```
-git clone https://github.com/Dimas9410/Mikrotik-CHR
+git clone -b chr-v7 https://github.com/Dimas9410/Mikrotik-CHR.git
 ```
 ```
 cd Mikrotik-CHR
