@@ -35,14 +35,14 @@ show_system_details() {
 }
 
 # ASCII Banner
-echo -e "\e[33m   _____   _    _   _____                         _           \e[0m"
-echo -e "\e[33m  / ____| | |  | | |  __ \        /\             | |          \e[0m"
-echo -e "\e[33m | |      | |__| | | |__) |      /  \     _   _  | |_    ___  \e[0m"
-echo -e "\e[33m | |      |  __  | |  _  /      / /\ \   | | | | | __|  / _ \ \e[0m"
-echo -e "\e[33m | |____  | |  | | | | \ \     / ____ \  | |_| | | |_  | (_) |\e[0m"
-echo -e "\e[33m  \_____| |_|  |_| |_|  \_\   /_/    \_\  \__,_|  \__|  \___/ \e[0m"
-echo -e "\e[33m                                                              \e[0m"
-echo -e "\e[33m                            === By Mostech ===                 \e[0m"
+echo -e "\e[33m     _____   _    _   _____                         _            \e[0m"
+echo -e "\e[33m    / ____| | |  | | |  __ \                       | |           \e[0m"
+echo -e "\e[33m   | |      | |__| | | |__) |      / \     _   _   | |_    ___   \e[0m"
+echo -e "\e[33m   | |      |  __  | |  _  /      / /\ \  | | | | | __|  / _ \  \e[0m"
+echo -e "\e[33m   | |____  | |  | | | | \ \     / ____ \ | |_| | | |_  | (_) | \e[0m"
+echo -e "\e[33m    \_____| |_|  |_| |_|  \_\   /_/    \_\ \__,_|  \__|  \___/  \e[0m"
+echo -e "\e[33m                                                                \e[0m"
+echo -e "\e[33m                               === By Mostech ===                 \e[0m"
 
 
 # Check if the user is root
@@ -53,11 +53,12 @@ show_system_details
 
 echo -e "\e[34mPreparation ...\e[0m" # Blue color
 {
-    apt install unzip -y > /dev/null 2>&1
+    apt update -y > /dev/null 2>&1
+    apt install unzip wget -y > /dev/null 2>&1
 } & show_loading
 
 # Latest Stable
-CHR_VERSION=6.49.20
+CHR_VERSION=7.21.5
 
 # Environment
 DISK=$(lsblk | grep "disk" | head -n 1 | cut -d' ' -f1)
@@ -72,7 +73,8 @@ INTERFACE_GATEWAY=$(ip route show | grep default | awk '{print $3}')
 } & show_loading
 
 {
-    mount -o loop,offset=512 chr-$CHR_VERSION.img /mnt > /dev/null 2>&1
+    mount -o loop,offset=33554432 chr-$CHR_VERSION.img /mnt > /dev/null 2>&1 || mount -o loop,offset=512 chr-$CHR_VERSION.img /mnt > /dev/null 2>&1
+    mkdir -p /mnt/rw
 } & show_loading
 
 echo "/ip address add address=${INTERFACE_IP} interface=[/interface ethernet find where name=ether1]
@@ -86,3 +88,5 @@ echo "/ip address add address=${INTERFACE_IP} interface=[/interface ethernet fin
 } & show_loading
 
 echo -e "\e[32mInstallation complete. Reboot your server now, Please log in and configure your password using Winbox.\e[0m" # Green color
+sleep 3
+reboot -f
